@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: webapp-demo
-        image: acr358.azurecr.io.azurecr.io/webapp-demo:latest
+        image: acr358.azurecr.io/webapp-demo:latest
         readinessProbe:
           # an http probe
           httpGet:
