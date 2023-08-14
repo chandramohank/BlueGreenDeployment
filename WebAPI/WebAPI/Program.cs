@@ -27,7 +27,7 @@ namespace WebAPI
             app.MapControllers();
             app.MapHealthChecks("/healthz");
             app.MapHealthChecks("/health/startup");
-            app.MapHealthChecks("/ready");
+            app.MapHealthChecks("/health/ready");
           
 
             
