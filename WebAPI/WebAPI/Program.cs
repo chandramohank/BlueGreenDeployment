@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using System;
+
 namespace WebAPI
 {
     public class Program
@@ -12,7 +15,11 @@ namespace WebAPI
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddHealthChecks().AddCheck<RandomHealthCheck>(nameof(RandomHealthCheck));
+            builder.Services.AddHealthChecks()
+                .AddCheck<RandomHealthCheck>("Ready",
+        tags: new[] { "ready" })
+                .AddCheck<StartupProbe>("Startup",
+        tags: new[] { "startup" });
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -26,11 +33,17 @@ namespace WebAPI
             app.UseAuthorization();
             app.MapControllers();
             app.MapHealthChecks("/healthz");
-            app.MapHealthChecks("/health/startup");
-            app.MapHealthChecks("/health/ready");
-          
+            app.MapHealthChecks("/health/startup", new HealthCheckOptions
+            {
+                Predicate = healthCheck => healthCheck.Tags.Contains("startup")
+            });
+            app.MapHealthChecks("/health/ready", new HealthCheckOptions
+            {
+                Predicate = healthCheck => healthCheck.Tags.Contains("ready")
+            });
 
-            
+
+
             app.Run();
         }
     }

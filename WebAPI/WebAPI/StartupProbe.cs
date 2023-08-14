@@ -2,7 +2,7 @@
 
 namespace WebAPI
 {
-    public class RandomHealthCheck : IHealthCheck
+    public class StartupProbe : IHealthCheck
     {
         private static readonly Random _rnd = new Random();
 
@@ -20,7 +20,6 @@ namespace WebAPI
         CancellationToken cancellationToken = default(CancellationToken))
         {
             var healthCheckResultHealthy = true;
-            Thread.Sleep(10000);
             if (healthCheckResultHealthy)
             {
                 return Task.FromResult(
