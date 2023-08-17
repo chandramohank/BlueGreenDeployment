@@ -20,3 +20,5 @@ spec:
             name: studio-payment
             port:
               number: 80
+        path: /
+        pathType: ImplementationSpecific
