@@ -16,5 +16,7 @@ spec:
     http:
       paths:
       - backend:
-          serviceName: webapp-demo
-          servicePort: 80
+          service:
+            name: studio-payment
+            port:
+              number: 80
