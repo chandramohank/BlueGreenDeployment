@@ -15,23 +15,23 @@ spec:
       containers:
       - name: webapp-demo
         image: acr358.azurecr.io/webapp-demo:latest
-        readinessProbe:
-          # an http probe
-          httpGet:
-            path: /health/ready
-            port: 80
-          # length of time to wait for a pod to initialize
-          # after pod startup, before applying health checking
-          initialDelaySeconds: 30
-          periodSeconds: 10
-          timeoutSeconds: 1
-        startupProbe:
-          # an http probe
-          httpGet:
-            path: /health/startup
-            port: 80
-          failureThreshold: 5
-          periodSeconds: 5
+        #readinessProbe:
+        #  # an http probe
+        #  httpGet:
+        #    path: /health/ready
+        #    port: 80
+        #  # length of time to wait for a pod to initialize
+        #  # after pod startup, before applying health checking
+        #  initialDelaySeconds: 30
+        #  periodSeconds: 10
+        #  timeoutSeconds: 1
+        #startupProbe:
+        #  # an http probe
+        #  httpGet:
+        #    path: /health/startup
+        #    port: 80
+        #  failureThreshold: 5
+        #  periodSeconds: 5
         ports:
         - containerPort: 80
         resources:
