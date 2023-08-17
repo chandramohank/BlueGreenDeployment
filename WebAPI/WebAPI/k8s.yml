@@ -24,7 +24,7 @@ spec:
           # after pod startup, before applying health checking
           initialDelaySeconds: 30
           periodSeconds: 10
-          timeoutSeconds: 1
+          timeoutSeconds: 10
         startupProbe:
           # an http probe
           httpGet:
@@ -32,6 +32,7 @@ spec:
             port: 5269
           failureThreshold: 5
           periodSeconds: 5
+          timeoutSeconds: 10
         ports:
         - containerPort: 5269
         resources:
