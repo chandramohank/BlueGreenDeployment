@@ -22,9 +22,9 @@ spec:
             port: 5269
           # length of time to wait for a pod to initialize
           # after pod startup, before applying health checking
-          initialDelaySeconds: 30
+          initialDelaySeconds: 1
           periodSeconds: 10
-          timeoutSeconds: 10
+          timeoutSeconds: 20
         startupProbe:
           # an http probe
           httpGet:
