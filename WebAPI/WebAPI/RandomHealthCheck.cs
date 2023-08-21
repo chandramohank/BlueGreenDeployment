@@ -5,6 +5,12 @@ namespace WebAPI
     public class RandomHealthCheck : IHealthCheck
     {
         private static readonly Random _rnd = new Random();
+        private readonly ILogger<RandomHealthCheck> logger;
+
+        public RandomHealthCheck(ILogger<RandomHealthCheck> logger)
+        {
+            this.logger = logger;
+        }
 
         //public Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken = default)
         //{
@@ -19,6 +25,7 @@ namespace WebAPI
         HealthCheckContext context,
         CancellationToken cancellationToken = default(CancellationToken))
         {
+            logger.Log(LogLevel.Debug, "triggered readiness probe");
             var healthCheckResultHealthy = true;
             Thread.Sleep(10000);
             if (healthCheckResultHealthy)

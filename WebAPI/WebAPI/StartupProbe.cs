@@ -5,6 +5,12 @@ namespace WebAPI
     public class StartupProbe : IHealthCheck
     {
         private static readonly Random _rnd = new Random();
+        private readonly ILogger<StartupProbe> logger;
+
+        public StartupProbe(ILogger<StartupProbe> logger)
+        {
+            this.logger = logger;
+        }
 
         //public Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken = default)
         //{
@@ -19,6 +25,7 @@ namespace WebAPI
         HealthCheckContext context,
         CancellationToken cancellationToken = default(CancellationToken))
         {
+            logger.Log(LogLevel.Debug, "triggered startup probe");
             var healthCheckResultHealthy = true;
             if (healthCheckResultHealthy)
             {
