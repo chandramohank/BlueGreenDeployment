@@ -25,7 +25,7 @@ namespace WebAPI
         HealthCheckContext context,
         CancellationToken cancellationToken = default(CancellationToken))
         {
-            logger.Log(LogLevel.Debug, "triggered startup probe");
+            logger.Log(LogLevel.Information, "triggered startup probe");
             var healthCheckResultHealthy = true;
             if (healthCheckResultHealthy)
             {

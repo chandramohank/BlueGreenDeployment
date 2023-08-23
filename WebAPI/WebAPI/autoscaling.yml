@@ -1,0 +1,30 @@
+apiVersion: keda.sh/v1alpha1
+kind: TriggerAuthentication
+metadata:
+  name: trigger-podIdentity-auth
+spec:
+  podIdentity:
+    provider: azure-workload
+    identityId: 54aae651-7dac-4d85-acc9-74ad763612ad
+---
+apiVersion: keda.sh/v1alpha1 
+kind: ScaledObject
+metadata:
+  name: webapp-demo-scaleobject
+  namespace: webapp-demo-namespace
+spec:
+  scaleTargetRef:
+    deploymentName: webapp-demo
+  minReplicaCount: 1 #Change to define how many minimum replicas you want
+  maxReplicaCount: 4
+  triggers:
+  - type: azure-application-insights
+    metadata:
+      query: "requests | summarize sum(itemCount) by bin(timestamp, 1m),name | where  name == 'POST Checkouts/Checkouts' | project sum_itemCount"
+      threshold: "5"
+      timeGrain: "PT10S"
+      timeWindow: "PT5M"
+    azureApplicationInsightsConfig:
+      queryEndpoint: https://api.applicationinsights.io/v1/apps/8ca46e99-8eb4-41b3-a27e-cf063ec3e8b9/query
+    authenticationRef:
+      name: trigger-podIdentity-auth
