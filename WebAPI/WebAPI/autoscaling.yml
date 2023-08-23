@@ -14,7 +14,7 @@ metadata:
   namespace: webapp-demo-namespace
 spec:
   scaleTargetRef:
-    deploymentName: webapp-demo
+    name: webapp-demo
   minReplicaCount: 1 #Change to define how many minimum replicas you want
   maxReplicaCount: 4
   triggers:
@@ -24,7 +24,6 @@ spec:
       threshold: "5"
       timeGrain: "PT10S"
       timeWindow: "PT5M"
-    azureApplicationInsightsConfig:
       queryEndpoint: https://api.applicationinsights.io/v1/apps/8ca46e99-8eb4-41b3-a27e-cf063ec3e8b9/query
     authenticationRef:
       name: trigger-podIdentity-auth
