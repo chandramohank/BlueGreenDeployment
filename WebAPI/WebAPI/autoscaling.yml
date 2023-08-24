@@ -5,7 +5,7 @@ metadata:
 spec:
   podIdentity:
     provider: azure-workload
-    identityId: 54aae651-7dac-4d85-acc9-74ad763612ad
+    identityId: b8f51514-ea5b-4609-9432-fe91a17e74be
 ---
 apiVersion: keda.sh/v1alpha1 
 kind: ScaledObject
@@ -20,10 +20,10 @@ spec:
   triggers:
   - type: azure-application-insights
     metadata:
-      query: "requests | summarize sum(itemCount) by bin(timestamp, 1m),name | where  name == 'POST Checkouts/Checkouts' | project sum_itemCount"
+      query: "requests | summarize sum(itemCount) by name | where  name == 'GET WeatherForecast/Get' | project sum_itemCount"
       threshold: "5"
       timeGrain: "PT10S"
       timeWindow: "PT5M"
-      queryEndpoint: https://api.applicationinsights.io/v1/apps/8ca46e99-8eb4-41b3-a27e-cf063ec3e8b9/query
+      queryEndpoint: https://api.applicationinsights.io/v1/apps/a6f01cd6-d26b-4abd-9c60-1927c25203e2/query
     authenticationRef:
       name: trigger-podIdentity-auth
