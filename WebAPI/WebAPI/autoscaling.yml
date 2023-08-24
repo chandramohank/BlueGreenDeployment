@@ -11,7 +11,7 @@ apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
 metadata:
   name: webapp-demo-scaleobject
-  namespace: webapp-demo-namespace
+  namespace: demo-cluster-ns
 spec:
   scaleTargetRef:
     name: webapp-demo
