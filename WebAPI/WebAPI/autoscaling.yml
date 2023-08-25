@@ -18,12 +18,11 @@ spec:
   minReplicaCount: 1 #Change to define how many minimum replicas you want
   maxReplicaCount: 4
   triggers:
-  - type: azure-application-insights
+  - type: azure-app-insights
     metadata:
       query: "requests | summarize sum(itemCount) by name | where  name == 'GET WeatherForecast/Get' | project sum_itemCount"
       threshold: "5"
-      timeGrain: "PT10S"
-      timeWindow: "PT5M"
+      timespan: "PT10S"
       queryEndpoint: https://api.applicationinsights.io/v1/apps/a6f01cd6-d26b-4abd-9c60-1927c25203e2/query
     authenticationRef:
       name: trigger-podIdentity-auth
