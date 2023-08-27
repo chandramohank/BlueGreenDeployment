@@ -22,5 +22,6 @@ spec:
     metadata:
       query: "requests | summarize sum(itemCount) by name | where  name == 'GET WeatherForecast/Get' | project sum_itemCount"
       timespan: "PT10S"
+      queryEndpoint: https://api.applicationinsights.io/v1/apps/0db2e993-c031-4359-b648-4c4d88d80a63/query
     authenticationRef:
       name: trigger-podIdentity-auth

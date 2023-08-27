@@ -27,7 +27,6 @@ namespace WebAPI
         {
             logger.Log(LogLevel.Information, "triggered readiness probe");
             var healthCheckResultHealthy = true;
-            Thread.Sleep(10000);
             if (healthCheckResultHealthy)
             {
                 return Task.FromResult(
