@@ -1,0 +1,11 @@
+kind: HTTPScaledObject
+apiVersion: http.keda.sh/v1alpha1
+metadata:
+    name: webapp-demo-scaler
+spec:
+    host: "myhost.com"
+    targetPendingRequests: 10
+    scaleTargetRef:
+        deployment: webapp-demo
+        service: webapp-demo
+        port: 8080
