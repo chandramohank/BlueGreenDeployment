@@ -38,3 +38,6 @@ spec:
             mountPath: /pod-data  # The path within the Ubuntu container for working with shared data.
         command: ["/bin/sh"]  # Specifies the command to run within the Ubuntu container.
         args: ["-c", "echo 'Hello, World!!!' > /pod-data/index.html"]  # Command arguments to create an HTML file.
+      volumes:
+      - name: shared-data
+        emptyDir: {}
