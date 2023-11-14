@@ -4,17 +4,26 @@ metadata:
   name: multi-pod  # This is the name of the Kubernetes Pod.
 
 spec:
-  containers:
-    - name: nginx-container  # Nginx container for serving web content.
-      image: nginx  # The Docker image to use for the Nginx container.
-      volumeMounts:
-        - name: shared-data  # Mounts the 'shared-data' volume inside the Nginx container.
-          mountPath: /usr/share/nginx/html  # The path where Nginx serves content.
+ template:
+    metadata:
+      labels:
+        app: studio-payment
+        appName: studio-payment
+        owner: chubb-studio-payment-gateway
+        tier: backend
+        track: stable
+    spec:
+      containers:
+      - name: nginx-container  # Nginx container for serving web content.
+        image: nginx  # The Docker image to use for the Nginx container.
+        volumeMounts:
+          - name: shared-data  # Mounts the 'shared-data' volume inside the Nginx container.
+            mountPath: /usr/share/nginx/html  # The path where Nginx serves content.
 
-    - name: ubuntu-container  # Ubuntu container for data manipulation.
-      image: ubuntu  # The Docker image to use for the Ubuntu container.
-      volumeMounts:
-        - name: shared-data  # Mounts the 'shared-data' volume inside the Ubuntu container.
-          mountPath: /pod-data  # The path within the Ubuntu container for working with shared data.
-      command: ["/bin/sh"]  # Specifies the command to run within the Ubuntu container.
-      args: ["-c", "echo 'Hello, World!!!' > /pod-data/index.html"]  # Command arguments to create an HTML file.
+      - name: ubuntu-container  # Ubuntu container for data manipulation.
+        image: ubuntu  # The Docker image to use for the Ubuntu container.
+        volumeMounts:
+          - name: shared-data  # Mounts the 'shared-data' volume inside the Ubuntu container.
+            mountPath: /pod-data  # The path within the Ubuntu container for working with shared data.
+        command: ["/bin/sh"]  # Specifies the command to run within the Ubuntu container.
+        args: ["-c", "echo 'Hello, World!!!' > /pod-data/index.html"]  # Command arguments to create an HTML file.
