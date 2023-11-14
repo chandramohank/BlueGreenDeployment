@@ -4,12 +4,23 @@ metadata:
   name: multi-pod  # This is the name of the Kubernetes Pod.
 
 spec:
- template:
+  selector:
+    matchLabels:
+      app: multi-pod
+      tier: backend
+      track: stable
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5
+  template:
     metadata:
       labels:
-        app: studio-payment
-        appName: studio-payment
-        owner: chubb-studio-payment-gateway
+        app: multi-pod
+        appName: multi-pod
+        owner: multi-pod
         tier: backend
         track: stable
     spec:
