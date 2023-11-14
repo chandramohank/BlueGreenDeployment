@@ -1,22 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: multi-pod  # This is the name of the Kubernetes Pod.
-
+  name: my-app
 spec:
+  replicas: 3
   selector:
     matchLabels:
-      app: multi-pod
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 1
-  minReadySeconds: 5
+      app: my-app
   template:
     metadata:
       labels:
-        app: multi-pod
+        app: my-app
     spec:
       containers:
       - name: nginx-container  # Nginx container for serving web content.
