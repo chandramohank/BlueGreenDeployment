@@ -4,12 +4,6 @@ metadata:
   name: multi-pod  # This is the name of the Kubernetes Pod.
 
 spec:
-  restartPolicy: Never  # Specifies that containers in the Pod should not be restarted automatically.
-
-  volumes:
-    - name: shared-data  # Defines an emptyDir volume named 'shared-data' for sharing data between containers.
-      emptyDir: {}  # An empty directory that containers can use to share data.
-
   containers:
     - name: nginx-container  # Nginx container for serving web content.
       image: nginx  # The Docker image to use for the Nginx container.
