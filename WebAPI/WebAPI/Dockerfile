@@ -15,10 +15,10 @@ ARG configuration=Release
 RUN apt update && \
     apt install -y --no-install-recommends nginx && \
     rm -rf /var/lib/apt/lists/* && \
-    apt clean
-RUN rm /etc/nginx/nginx.conf /etc/nginx/conf.d/default.conf
-COPY content /usr/share/nginx/html
-COPY conf /etc/nginx
+    apt clean && \
+    rm /etc/nginx/nginx.conf
+COPY nginx.conf /etc/nginx/nginx.conf
+
 RUN mkdir -p /usr/share/nginx/html/.well-known/apple-developer-merchantid-domain-association
 COPY cert/apple-developer-merchantid-domain-association /usr/share/nginx/html/.well-known/apple-developer-merchantid-domain-association
 WORKDIR /src
