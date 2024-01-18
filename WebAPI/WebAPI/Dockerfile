@@ -11,6 +11,9 @@ ENV ASPNETCORE_URLS=http://+:5269
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 ARG configuration=Release
+
+RUN mkdir -p /usr/share/nginx/html/.well-known/apple-developer-merchantid-domain-association
+COPY cert/apple-developer-merchantid-domain-association /usr/share/nginx/html/.well-known/apple-developer-merchantid-domain-association
 WORKDIR /src
 COPY ["WebAPI.csproj", "./"]
 RUN dotnet restore "WebAPI.csproj"
