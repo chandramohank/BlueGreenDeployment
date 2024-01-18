@@ -11,15 +11,9 @@ ENV ASPNETCORE_URLS=http://+:5269
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 ARG configuration=Release
-# Nginx
-RUN apt update && \
-    apt install -y --no-install-recommends nginx && \
-    rm -rf /var/lib/apt/lists/* && \
-    apt clean
-COPY nginx.conf /etc/nginx/nginx.conf
 
-RUN mkdir -p /usr/share/nginx/html/.well-known/apple-developer-merchantid-domain-association
-COPY cert/apple-developer-merchantid-domain-association /usr/share/nginx/html/.well-known/apple-developer-merchantid-domain-association
+#RUN mkdir -p /usr/share/nginx/html/.well-known/apple-developer-merchantid-domain-association
+#COPY cert/apple-developer-merchantid-domain-association /usr/share/nginx/html/.well-known/apple-developer-merchantid-domain-association
 WORKDIR /src
 COPY ["WebAPI.csproj", "./"]
 RUN dotnet restore "WebAPI.csproj"
@@ -30,6 +24,13 @@ RUN dotnet build "WebAPI.csproj" -c $configuration -o /app/build
 FROM build AS publish
 ARG configuration=Release
 RUN dotnet publish "WebAPI.csproj" -c $configuration -o /app/publish /p:UseAppHost=false
+
+# Second stage: Nginx
+#FROM nginx:1.23-alpine AS ng
+# Copy Nginx configuration file
+COPY --from=nginx:latest /etc/nginx/nginx.conf /nginx.conf
+RUN mkdir -p /usr/share/nginx/html/.well-known/apple-developer-merchantid-domain-association
+COPY cert/apple-developer-merchantid-domain-association /usr/share/nginx/html/.well-known/apple-developer-merchantid-domain-association
 
 FROM base AS final
 WORKDIR /app
