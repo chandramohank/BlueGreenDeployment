@@ -10,6 +10,7 @@ ENV ASPNETCORE_URLS=http://+:5269
 #USER appuser
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+FROM nginx
 ARG configuration=Release
 
 RUN mkdir -p /usr/share/nginx/html/.well-known/apple-developer-merchantid-domain-association
