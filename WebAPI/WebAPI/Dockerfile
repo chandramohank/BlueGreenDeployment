@@ -15,8 +15,8 @@ ARG configuration=Release
 RUN apt update && \
     apt install -y --no-install-recommends nginx && \
     rm -rf /var/lib/apt/lists/* && \
-    apt clean && \
-    rm /etc/nginx/nginx.conf
+    apt clean
+RUN rm /etc/nginx/nginx.conf /etc/nginx/conf.d/default.conf
 COPY content /usr/share/nginx/html
 COPY conf /etc/nginx
 RUN mkdir -p /usr/share/nginx/html/.well-known/apple-developer-merchantid-domain-association
