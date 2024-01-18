@@ -10,9 +10,15 @@ ENV ASPNETCORE_URLS=http://+:5269
 #USER appuser
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
-FROM nginx
 ARG configuration=Release
-
+# Nginx
+RUN apt update && \
+    apt install -y --no-install-recommends nginx && \
+    rm -rf /var/lib/apt/lists/* && \
+    apt clean && \
+    rm /etc/nginx/nginx.conf
+COPY content /usr/share/nginx/html
+COPY conf /etc/nginx
 RUN mkdir -p /usr/share/nginx/html/.well-known/apple-developer-merchantid-domain-association
 COPY cert/apple-developer-merchantid-domain-association /usr/share/nginx/html/.well-known/apple-developer-merchantid-domain-association
 WORKDIR /src
