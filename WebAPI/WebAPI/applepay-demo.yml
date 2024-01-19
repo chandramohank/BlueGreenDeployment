@@ -5,7 +5,7 @@ metadata:
   labels:
     app: nginx
 spec:
-  replicas: 1  # Number of replicas of the nginx pod
+  replicas: 1
   selector:
     matchLabels:
       app: nginx
@@ -14,20 +14,12 @@ spec:
       labels:
         app: nginx
     spec:
-      serviceAccountName: workload-identity
       containers:
       - name: nginx
         image: nginx:latest
         ports:
-        - containerPort: 5269
-        volumeMounts:
-        - name: apple-developer-merchantid-domain-association  # Name of the volume mount
-          mountPath: /usr/share/nginx/html/.well-known  # Path to mount the volume
-      volumes:
-      - name: apple-developer-merchantid-domain-association
-        hostPath:
-          path: /cert  # Replace with the actual path on the host
-          type: DirectoryOrCreate  # Ensures the .well-known directory is created if it doesn't exist
+        - containerPort: 80
+        command: ["/bin/sh", "-c", "cp -r /cert/apple-developer-merchantid-domain-association /usr/share/nginx/html/.well-known && nginx -g 'daemon off;'"]
 ---
 apiVersion: v1
 kind: Service
