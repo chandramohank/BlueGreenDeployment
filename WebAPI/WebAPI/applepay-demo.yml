@@ -19,7 +19,7 @@ spec:
         image: nginx:latest
         ports:
         - containerPort: 80
-        command: ["/bin/sh", "-c", "cp -r /cert/apple-developer-merchantid-domain-association /usr/share/nginx/html/.well-known && nginx -g 'daemon off;'"]
+        command: ["/bin/sh", "-c", "mkdir -p /usr/share/nginx/html/.well-known && cp /cert/apple-developer-merchantid-domain-association /usr/share/nginx/html/.well-known && nginx -g 'daemon off;'"]
 ---
 apiVersion: v1
 kind: Service
