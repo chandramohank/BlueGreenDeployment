@@ -26,7 +26,7 @@ spec:
       volumes:
       - name: apple-developer-merchantid-domain-association
         hostPath:
-          path: /cert/apple-developer-merchantid-domain-association  # Replace with the actual path on the host
+          path: /cert  # Replace with the actual path on the host
           type: DirectoryOrCreate  # Ensures the .well-known directory is created if it doesn't exist
 ---
 apiVersion: v1
