@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: webapp-demo
+  name: applepay-demo
 spec:
   selector:
     matchLabels:
-      app: webapp-demo
+      app: applepay-demo
   replicas: 1 
   template: 
     metadata:
       labels:
-        app: webapp-demo
+        app: applepay-demo
         azure.workload.identity/use: "true"
     spec:
       serviceAccountName: workload-identity
       containers:
-      - name: webapp-demo
-        image: acr358.azurecr.io/webapp-demo:latest
+      - name: applepay-demo
+        image: acr358.azurecr.io/applepay-demo:latest
         readinessProbe:
           # an http probe
           httpGet:
@@ -41,7 +41,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
- name: webapp-demo
+ name: applepay-demo
 spec:
   ports:
   - port: 80
@@ -51,4 +51,4 @@ spec:
   sessionAffinity: None
   type: LoadBalancer
   selector:
-    app: webapp-demo
+    app: applepay-demo

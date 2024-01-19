@@ -28,9 +28,9 @@ RUN dotnet publish "WebAPI.csproj" -c $configuration -o /app/publish /p:UseAppHo
 # Second stage: Nginx
 #FROM nginx:1.23-alpine AS ng
 # Copy Nginx configuration file
-COPY --from=nginx:latest /etc/nginx/nginx.conf /nginx.conf
-RUN mkdir -p /usr/share/nginx/html/.well-known
-COPY cert/apple-developer-merchantid-domain-association /usr/share/nginx/html/.well-known
+#COPY --from=nginx:latest /etc/nginx/nginx.conf /nginx.conf
+#RUN mkdir -p /usr/share/nginx/html/.well-known
+#COPY cert/apple-developer-merchantid-domain-association /usr/share/nginx/html/.well-known
 
 FROM base AS final
 WORKDIR /app

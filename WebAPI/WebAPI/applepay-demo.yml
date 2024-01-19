@@ -1,42 +1,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: applepay-demo
+  name: nginx-deployment
+  labels:
+    app: nginx
 spec:
+  replicas: 1  # Number of replicas of the nginx pod
   selector:
     matchLabels:
-      app: applepay-demo
-  replicas: 1 
-  template: 
+      app: nginx
+  template:
     metadata:
       labels:
-        app: applepay-demo
-        azure.workload.identity/use: "true"
+        app: nginx
     spec:
       serviceAccountName: workload-identity
       containers:
-      - name: applepay-demo
-        image: acr358.azurecr.io/applepay-demo:latest
-        readinessProbe:
-          # an http probe
-          httpGet:
-            path: /health/ready
-            port: 5269
-          # length of time to wait for a pod to initialize
-          # after pod startup, before applying health checking
-          initialDelaySeconds: 1
-          periodSeconds: 10
-          timeoutSeconds: 20
-        startupProbe:
-          # an http probe
-          httpGet:
-            path: /health/startup
-            port: 5269
-          failureThreshold: 5
-          periodSeconds: 5
-          timeoutSeconds: 10
+      - name: nginx
+        image: nginx:latest
         ports:
         - containerPort: 5269
+        volumeMounts:
+        - name: apple-developer-merchantid-domain-association  # Name of the volume mount
+          mountPath: /usr/share/nginx/html/.well-known  # Path to mount the volume
+      volumes:
+      - name: apple-developer-merchantid-domain-association
+        hostPath:
+          path: /cert/apple-developer-merchantid-domain-association  # Replace with the actual path on the host
+          type: DirectoryOrCreate  # Ensures the .well-known directory is created if it doesn't exist
 ---
 apiVersion: v1
 kind: Service
@@ -51,4 +42,4 @@ spec:
   sessionAffinity: None
   type: LoadBalancer
   selector:
-    app: applepay-demo
+    app: nginx
