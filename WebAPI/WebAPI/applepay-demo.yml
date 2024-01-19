@@ -28,7 +28,7 @@ metadata:
 spec:
   ports:
   - port: 80
-    targetPort: 5269
+    targetPort: 80
     protocol: TCP
     name: expose-proxyport
   sessionAffinity: None
