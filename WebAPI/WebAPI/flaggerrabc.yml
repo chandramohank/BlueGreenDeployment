@@ -1,0 +1,24 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: flagger-role
+rules:
+  - apiGroups: ["", "apps", "extensions", "networking.k8s.io"]
+    resources: ["deployments", "replicasets", "services", "ingresses", "configmaps"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["flagger.app"]
+    resources: ["canaries", "metrictemplates"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: flagger-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: flagger-role
+subjects:
+  - kind: ServiceAccount
+    name: flagger
+    namespace: flagger
