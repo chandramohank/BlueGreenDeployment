@@ -2,7 +2,7 @@ apiVersion: flagger.app/v1beta1
 kind: Canary
 metadata:
   name: webapp-demo
-  namespace: default
+  namespace: demo-cluster-ns
 spec:
   targetRef:
     apiVersion: apps/v1
