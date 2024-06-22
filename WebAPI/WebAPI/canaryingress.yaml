@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: webapp-demo
   annotations:
-    kubernetes.io/ingress.class: "nginx"
+    kubernetes.io/ingress.class: ingress-nginx
 spec:
   rules:
   - host: 57.152.16.222.nip.io
