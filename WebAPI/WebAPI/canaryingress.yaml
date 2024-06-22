@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: webapp-demo
+  annotations:
+    kubernetes.io/ingress.class: ingress-nginx
+spec:
+  rules:
+  - host: host1.domain.ext
+    http:
+      paths:
+      - backend:
+          service:
+            name: webapp-demo
+            port:
+              number: 80
