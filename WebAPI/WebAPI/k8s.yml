@@ -49,6 +49,6 @@ spec:
     protocol: TCP
     name: expose-proxyport
   sessionAffinity: None
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app: webapp-demo
