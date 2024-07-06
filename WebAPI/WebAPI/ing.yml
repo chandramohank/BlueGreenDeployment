@@ -4,12 +4,16 @@ metadata:
   name: webapp-demo
   annotations:
     kubernetes.io/ingress.class: ingress-nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   rules:
+  - host: host1.domain.ext
     http:
       paths:
       - backend:
-          serviceName: webapp-demo
-          servicePort: 80
+          service:
+            name: webapp-demo
+            port:
+              number: 80
         path: /
-        pathType: Prefix
+        pathType: ImplementationSpecific
