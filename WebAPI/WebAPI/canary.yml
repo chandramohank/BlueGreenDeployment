@@ -30,4 +30,4 @@ spec:
       - name: load-test
         url: http://flagger-loadtester.test/
         metadata:
-          cmd: "hey -z 1m -q 10 -c 2 -H \"Host: host1.domain.ext\" http://57.151.57.40/WeatherForecast"
+          cmd: "hey -z 1m -q 10 -c 2 -H \"Host: host1.domain.ext\" http://135.237.11.204/WeatherForecast"
