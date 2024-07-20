@@ -1,0 +1,25 @@
+apiVersion: flagger.app/v1beta1
+kind: Canary
+metadata:
+  name: webapp-demo
+  namespace: demo-cluster-ns
+spec:
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: webapp-demo
+  ingressRef:
+    apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    name: webapp-demo
+  service:
+    port: 80
+  analysis:
+    interval: 1m
+    threshold: 3
+    maxWeight: 50
+    stepWeight: 5
+    metrics:
+      - name: http_requests_total
+        threshold: 10
+        interval: 1m
